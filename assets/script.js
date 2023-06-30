@@ -22,16 +22,8 @@ function includeLowerCase(){
   var choice = window.confirm("Do you want to include lowercase characters?");
 
   if (choice){
-
     passwordOptions.push(lowerCase);
-    console.log(passwordOptions);
   }
-
-  }
-
-  function generateRandomNum(len){
-
-   return Math.floor(Math.random() * len)
 
   }
 
@@ -40,22 +32,39 @@ function includeLowerCase(){
   
     if (choice){
   
-      passwordOptions.push(lowerCase);
-      console.log(passwordOptions);
+      passwordOptions.push(upperCase);
     }
   
     }
-  
-    function generateRandomNum(len){
-  
-     return Math.floor(Math.random() * len)
-  
-    }
+
+    function includeSpecialChar(){
+      var choice = window.confirm("Do you want to include special characters?");
+    
+      if (choice){
+    
+        passwordOptions.push(specialChar);
+      }
+    
+      }
+
+      function includeNumChar(){
+        var choice = window.confirm("Do you want to include numerical characters?");
+      
+        if (choice){
+      
+          passwordOptions.push(numChar);
+        }
+      
+        }
+
 
 
 function generatePassword(){
   
   includeLowerCase()
+  includeUpperCase()
+  includeSpecialChar()
+  includeNumChar()
   var randomArray = generateRandomNum(passwordOptions.length)
   var randomChar = generateRandomNum(passwordOptions[randomArray].length)
   console.log(passwordOptions[randomArray][randomChar])
