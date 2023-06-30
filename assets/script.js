@@ -27,7 +27,7 @@ function includeLowerCase(){
 
   }
 
-  function includeUpperCase(){
+function includeUpperCase(){
     var choice = window.confirm("Do you want to include uppercase characters?");
   
     if (choice){
@@ -37,7 +37,7 @@ function includeLowerCase(){
   
     }
 
-    function includeSpecialChar(){
+function includeSpecialChar(){
       var choice = window.confirm("Do you want to include special characters?");
     
       if (choice){
@@ -47,7 +47,7 @@ function includeLowerCase(){
     
       }
 
-      function includeNumChar(){
+function includeNumChar(){
         var choice = window.confirm("Do you want to include numerical characters?");
       
         if (choice){
@@ -56,20 +56,33 @@ function includeLowerCase(){
         }
       
         }
+ 
+        
+ function getPasswordLength(){
+    
+    var lengthChoice = window.prompt("Choose how long the password should be by entering a number between 8 and 128 (example: 8, not eight)")
 
+    if ( 8 <= lengthChoice && lengthChoice <= 128){
+      return lengthChoice
+    } else {
+      window.confirm("Please choose a whole number between 8 and 128.")
+      getPasswordLength()
+    }
+
+}
 
 
 function generatePassword(){
-  
+ 
   includeLowerCase()
   includeUpperCase()
   includeSpecialChar()
   includeNumChar()
+  var passwordLength = getPasswordLength()
   var randomArray = generateRandomNum(passwordOptions.length)
   var randomChar = generateRandomNum(passwordOptions[randomArray].length)
-  console.log(passwordOptions[randomArray][randomChar])
-
   
+  console.log(passwordLength)
 }
 
 
