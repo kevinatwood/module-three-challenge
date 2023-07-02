@@ -63,15 +63,15 @@ function includeNumChar(){
     var lengthChoice = window.prompt("Choose how long the password should be by entering a number between 8 and 128 (example: 8, not eight)")
 
     if ( 8 <= lengthChoice && lengthChoice <= 128){
-      return lengthChoice
+      return Math.floor(lengthChoice)
     } else {
       window.confirm("Please choose a whole number between 8 and 128.")
-      getPasswordLength()
+      return getPasswordLength()
     }
 
 }
 
-
+// TODO: Figure out how to make it so that randomChar returns a random character from any of the availible arrays
 function generatePassword(){
  
   includeLowerCase()
@@ -79,10 +79,23 @@ function generatePassword(){
   includeSpecialChar()
   includeNumChar()
   var passwordLength = getPasswordLength()
+  var passwordFirstDraft= []
+
+  for (let i = 0; i < passwordLength; i++){
   var randomArray = generateRandomNum(passwordOptions.length)
   var randomChar = generateRandomNum(passwordOptions[randomArray].length)
-  
-  console.log(passwordLength)
+  var randomText = passwordOptions[randomArray][randomChar]
+  passwordFirstDraft.push(randomText)
+
+  //  console.log(randomText)
+
+  }
+
+  var passwordSecondDraft = passwordFirstDraft.join("")
+
+  // console.log(passwordSecondDraft)
+
+  return passwordSecondDraft
 }
 
 
