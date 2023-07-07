@@ -9,11 +9,8 @@ var numChar = numbers.split('');
 var passwordOptions = [];
 var passwordFirstDraft = [];
 var passwordLength;
-var upperCaseBoolean ;
-var lowerCaseBoolean ;
-var numBoolean;
-var specialCharBoolean ;
 var passwordSecondDraft ;
+var allChars = [];
 
 //Get random number
 function generateRandomNum(len) {
@@ -30,7 +27,8 @@ function includeLowerCase() {
   var choice = window.confirm("Do you want to include lowercase characters? (Press OK for yes, Cancel for no)");
 
   if (choice) {
-    passwordOptions.push(lowerCase);
+    passwordOptions.push(lowerCase[generateRandomNum(lowerCase.length)]);
+    allChars.push(lowerCase)
   }
 
 }
@@ -40,7 +38,8 @@ function includeUpperCase() {
 
   if (choice) {
 
-    passwordOptions.push(upperCase);
+    passwordOptions.push(upperCase[generateRandomNum(upperCase.length)]);
+    allChars.push(upperCase)
   }
 
 }
@@ -50,7 +49,8 @@ function includeSpecialChar() {
 
   if (choice) {
 
-    passwordOptions.push(specialChar);
+    passwordOptions.push(specialChar[generateRandomNum(specialChar.length)]);
+    allChars.push(specialChar)
   }
 
 }
@@ -60,7 +60,8 @@ function includeNumChar() {
 
   if (choice) {
 
-    passwordOptions.push(numChar);
+    passwordOptions.push(numChar[generateRandomNum(numChar.length)]);
+    allChars.push(numChar)
   }
 
 }
@@ -79,109 +80,42 @@ function getPasswordLength() {
 
 }
 
-// Check if all characters are represented in password 
-
-
-function checkUpperCase(){
-  var hasUpperCase = false;
-  for (let i = 0; i < upperCase.length; i++){
-  if (passwordFirstDraft.includes(upperCase[i])){
-    hasUpperCase = true;
-    return hasUpperCase;
-  } 
-  }
-  return hasUpperCase;
-}
-
-function checkLowerCase(){
-  var hasLowerCase = false;
-  for (let i = 0; i < lowerCase.length; i++){
-  if (passwordFirstDraft.includes(lowerCase[i])){
-    hasLowerCase = true;
-    return hasLowerCase;
-  } 
-  }
-  return hasLowerCase;
-}
-
-function checkNum(){
-  var hasNum = false;
-  for (let i = 0; i < numChar.length; i++){
-  if (passwordFirstDraft.includes(numChar[i])){
-    hasNum = true;
-    return hasNum;
-  } 
-  }
-  return hasNum;
-}
-
-function checkSpecialChar(){
-  var hasSpecialChar = false;
-  for (let i = 0; i < specialChar.length; i++){
-  if (passwordFirstDraft.includes(specialChar[i])){
-    hasSpecialChar = true;
-    return hasSpecialChar;
-  } 
-  }
-  return hasSpecialChar;
-}
-
-function initializeFunctions(){
-    passwordOptions = [];
-  
-  includeLowerCase()
-  includeUpperCase()
-  includeSpecialChar()
-  includeNumChar()
-  passwordLength = getPasswordLength()
-}
-
+// Creates password from arrays pushed into allChars
 function createDraft() {
   passwordFirstDraft = [];
+  
   for (let i = 0; i < passwordLength; i++) {
-  var randomArray = generateRandomNum(passwordOptions.length)
-  var randomChar = generateRandomNum(passwordOptions[randomArray].length)
-  var randomText = passwordOptions[randomArray][randomChar]
+  var randomArray = generateRandomNum(allChars.length)
+  var randomChar = generateRandomNum(allChars[randomArray].length)
+  var randomText = allChars[randomArray][randomChar]
   passwordFirstDraft.push(randomText)
 
 }
+// guarantees that at least one character will be present in final password
+for (var i = 0; i < passwordOptions.length; i++){
+  passwordFirstDraft.splice(i,1,passwordOptions[i])
+}
 }
 
-function checkPassword(){
-  upperCaseBoolean = checkUpperCase()
-  lowerCaseBoolean = checkLowerCase()
-  numBoolean= checkNum()
-  specialCharBoolean = checkSpecialChar()
 
-  console.log(upperCaseBoolean, lowerCaseBoolean, numBoolean, specialCharBoolean)
-
- 
-  }
-function makePassword(){
-  createDraft()
-
-  checkPassword()
-  
-}
 //Generate a password from the options that the user selected
 function generatePassword() {
 
-  initializeFunctions()
+  passwordOptions = [];
+  allChars = [];
+includeLowerCase()
+includeUpperCase()
+includeSpecialChar()
+includeNumChar()
+passwordLength = getPasswordLength()
+  
+  createDraft()
 
-  makePassword()
+ 
+  passwordSecondDraft = passwordFirstDraft.join("")
 
-  if (upperCaseBoolean && lowerCaseBoolean && numBoolean && specialCharBoolean){
-     passwordSecondDraft = passwordFirstDraft.join("")
-
-    return passwordSecondDraft
-   } else {
-  //  createDraft()
-  //  checkPassword()
-  //   return passwordSecondDraft
-   makePassword()
-  console.log(passwordSecondDraft)
   return passwordSecondDraft
-   }
+   
 
 }
 
